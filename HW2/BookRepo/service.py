@@ -20,7 +20,7 @@ class BookService:
         self.book_repo.update_pages(user_id, pages, title)
 
     async def list_books(self, user_id: int) -> list[Book]:
-        self.book_repo.fetch_books(user_id)
+         return self.book_repo.fetch_books(user_id)
 
     async def remove_book(self, user_id: int, title: str) -> None:
         self.book_repo.delete_book(user_id, title)
