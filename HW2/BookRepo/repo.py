@@ -98,6 +98,23 @@ INSERT INTO `Books` (`user_id`, `title`, `pages_count`) VALUES (
                 DELETE FROM `Books`
                 WHERE `user_id` = ? and `title` = ?;
                 """,
-                [user_id, title],
+                [user_id, title]
             )
             await db.commit()
+
+
+    async def wiew_statistic(self, user_id):
+
+        sql_command = """
+        SELECT SUM(`pages`), COUNT(`title`) FROM `BOOKS`
+        WHERE `user_id` = ?
+        """
+
+        async with aiosqlite.connect(self.db_path) as db:
+
+
+            cursor = await db.execute(sql_command, [user_id])
+            raw_book = await cursor.fetchone()
+            return raw_book
+
+
